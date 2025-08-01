@@ -3,6 +3,14 @@ namespace SpriteKind {
     export const Key = SpriteKind.create()
     export const Melee = SpriteKind.create()
 }
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (ItemTook < inventory.length - 1) {
+        ItemTook = ItemTook + 1
+    } else {
+        ItemTook = 0
+    }
+    jorge.setImage(inventory[ItemTook])
+})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairLadder, function (sprite, location) {
     if (animacionunavez == false) {
         animation.runImageAnimation(
@@ -121,14 +129,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairLadder, function (sp
         }, 2000)
 animacionunavez = true
     }
-})
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (ItemTook < inventory.length - 1) {
-        ItemTook = ItemTook + 1
-    } else {
-        ItemTook = 0
-    }
-    jorge.setImage(inventory[ItemTook])
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
     if (game.ask("¿Querés agregar la llave a tu inventario?")) {
@@ -311,3 +311,6 @@ scene.cameraFollowSprite(jorge)
 tiles.placeOnTile(llave, tiles.getTileLocation(12, 2))
 tiles.placeOnTile(piedra, tiles.getTileLocation(13, 2))
 tiles.placeOnTile(espada, tiles.getTileLocation(13, 3))
+forever(function () {
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.InBackground)
+})
